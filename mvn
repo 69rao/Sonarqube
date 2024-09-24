@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+
+    tools {
+        sonarQube 'SonarQube' // Name configured in Jenkins
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                // Build steps, e.g., mvn clean install
+            }
+        }
+        stage('SonarQube Analysis') {
+            steps {
+                script {
+                    // Replace 'sonar-project.properties' with appropriate configurations
+                    withSonarQubeEnv('SonarQube') {
+                        sh 'mvn sonar:sonar'
+                    }
+                }
+            }
+        }
+    }
+}
